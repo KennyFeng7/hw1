@@ -26,21 +26,7 @@ size_t ULListStr::size() const
 
 // WRITE YOUR CODE HERE
 void ULListStr::push_back(const std::string& val) {
-  /**
-  if (tail_ == NULL || tail_->last == ARRSIZE) {
-    Item *newItem = new Item();
-    if (tail_ != NULL) {
-      tail_->next = newItem;
-      newItem->prev = tail_;
-    }
-    tail_ = newItem;
-    if (head_==NULL) {
-      head_ = newItem;
-    }
-  }
-  tail_->val[tail_->last++] = val;
-  size_++;
-  **/
+  
   if (tail_ == NULL){
     Item *newItem = new Item();
     tail_ = newItem;
@@ -85,24 +71,7 @@ void ULListStr::pop_back() {
 }
 
 void ULListStr::push_front(const std::string& val) {
-  /** 
-  if (head_ == NULL || head_->first == 0) {
-    Item *newItem = new Item();
-    newItem->last = ARRSIZE;
-    newItem->first = ARRSIZE - 1;
-    if (tail_ == NULL) {
-      tail_ = newItem;
-    }
-    if(head_ != NULL) {
-      head_->prev = newItem;
-      newItem->next = head_;
-    }
-    head_ = newItem;
-  }
-  (head_->first)--;
-  head_->val[head_->first] = val;
-  size_++;
-**/
+  
   if (head_ == NULL){
     Item *newItem = new Item();
     head_ = newItem;
