@@ -26,22 +26,43 @@ size_t ULListStr::size() const
 
 // WRITE YOUR CODE HERE
 void ULListStr::push_back(const std::string& val) {
+  /**
   if (tail_ == NULL || tail_->last == ARRSIZE) {
     Item *newItem = new Item();
-    if (head_ == NULL) {
-      head_ = newItem;
-    }
     if (tail_ != NULL) {
       tail_->next = newItem;
       newItem->prev = tail_;
     }
-    else{
-      tail_ = newItem;
+    tail_ = newItem;
+    if (head_==NULL) {
+      head_ = newItem;
     }
   }
-  tail_->val[tail_->last] = val;
-  tail_->last++;
+  tail_->val[tail_->last++] = val;
   size_++;
+  **/
+  if (tail_ == NULL){
+    Item *newItem = new Item();
+    tail_ = newItem;
+    head_ = newItem;
+    tail_->val[tail_->last] = val;
+    tail_->last++;
+    size_++;
+  }
+  else if(tail_->last == ARRSIZE){
+    Item *newItem = new Item();
+    tail_->next = newItem;
+    newItem->prev = tail_;
+    tail_ = newItem;
+    tail_->val[tail_->last] = val;
+    tail_->last++;
+    size_++;
+  }
+  else{
+    tail_->val[tail_->last] = val;
+    tail_->last++;
+    size_++;
+  }
 }
 
 void ULListStr::pop_back() {
@@ -64,10 +85,11 @@ void ULListStr::pop_back() {
 }
 
 void ULListStr::push_front(const std::string& val) {
+  /** 
   if (head_ == NULL || head_->first == 0) {
     Item *newItem = new Item();
     newItem->last = ARRSIZE;
-    newItem->first = ARRSIZE;
+    newItem->first = ARRSIZE - 1;
     if (tail_ == NULL) {
       tail_ = newItem;
     }
@@ -76,11 +98,34 @@ void ULListStr::push_front(const std::string& val) {
       newItem->next = head_;
     }
     head_ = newItem;
-    
   }
-  (head_->first)-- ;
+  (head_->first)--;
   head_->val[head_->first] = val;
   size_++;
+**/
+  if (head_ == NULL){
+    Item *newItem = new Item();
+    head_ = newItem;
+    tail_ = newItem;
+    head_->val[head_->first] = val;
+    head_->last++;
+    size_++;
+  }
+  else if(head_->first == 0){
+    Item *newItem = new Item();
+    newItem->last = ARRSIZE;
+    newItem->first = ARRSIZE - 1;
+    head_->prev = newItem;
+    newItem->next = head_;
+    head_ = newItem;
+    head_->val[head_->first] = val;
+    size_++;
+  }
+  else{
+    (head_->first)--;
+    head_->val[head_->first] = val;
+    size_++;
+  }
 }
 
 void ULListStr::pop_front() {
@@ -117,7 +162,7 @@ std::string const& ULListStr::front() const {
 }
 
 std::string* ULListStr::getValAtLoc(size_t loc) const {
-  if (loc >= size_) {
+  if (loc >= size_ ) {
     return NULL; 
   }
   Item* current = head_;
